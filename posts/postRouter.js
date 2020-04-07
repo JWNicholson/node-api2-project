@@ -34,7 +34,7 @@ router.post("/:id/comments", (req, res) => {
             if (!posts){
               res.status(404).json({ errorMessage: "The post with the specified ID does not exist." });
             } else if (!req.body.post_id || !req.body.text){
-                  res.status(400).json({ errorMessage: "Please provide post_id and text for the comment." });
+                  res.status(400).json({ errorMessage: "Please provide title and text for the comment." });
                 } else {
                   db.insertComment(req.body)
                     .then(comments => { 
@@ -43,8 +43,8 @@ router.post("/:id/comments", (req, res) => {
                         res.status(201).json(comment)
                   })
                 })
-              .catch(err => {
-                res.status(500).json({errorMessage: "There was an error while saving the comment to the database", err});
+                .catch(err => {
+                    res.status(500).json({errorMessage: "There was an error while saving the comment to the database", err});
               });   
           }
       })
